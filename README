@@ -1,18 +1,151 @@
-Linux kernel
-============
+Note: This assignment was done in team of two.
+        
+        Team members :
+        
+        Raj Kinkhabwala (rajparagbhai.kinkhabwala@sjsu.edu)
+        Sakshi Jain (sakshi.jain01@sjsu.edu)
+        
+Team members contribution :
 
-There are several guides for kernel developers and users. These guides can
-be rendered in a number of formats, like HTML and PDF. Please read
-Documentation/admin-guide/README.rst first.
+Sakshi Jain - (Built and install new kernel versions)
+Forked the master linux github repository and cloned it locally.
+Checked the configurations and versions.
+Copied the boot config file locally and creatd a new one.
+Build all the new kernel modules.
 
-In order to build the documentation, use ``make htmldocs`` or
-``make pdfdocs``.  The formatted documentation can also be read online at:
+Raj Kinkhabwala -  (Built and ran the modules that gathers processor capabilities)
+Built the new kernel
+Install the modules and installed the kernel.
+Created the directory and copied the makefile and cmpe233-1.c
+Appended the licence info at the end of the cmpe283-1.c file
+Intalled and removed the modules and obtained the output
 
-    https://www.kernel.org/doc/html/latest/
+Steps Followed : 
 
-There are various text files in the Documentation/ subdirectory,
-several of them using the Restructured Text markup notation.
+1. Forked the  master linux github (torvalds) repo into this account and cloned it locally into ~/linux, follwed by cd into that new directory.
+2. Ran the command 'uname -a' to get the current running linux version.
+3. Copied the current config file locally using 'cp /boot/config-5.11.0-37-generic .config'
+4. Stored the current local config file into new one using 'make oldconfig'. 
+5. Held the enter key to get all new default values.
+6. Ran the command 'make prepare'.
+7. Once the prepare command was successful, ran the other command 'make -j 8 modules' to build all new kernel modules.
+8. Once all kernel modules are availabe ,ran 'make -j 8' command to make the new kernel.
+9. After that, installed the modules using 'sudo make INSTALL_MOD_STRIP=1 modules_install' command.
+10. And finally, ran 'sudo make install' to install the kernel.
+11. Rebooted the sytem using 'sudo reboot'.
 
-Please read the Documentation/process/changes.rst file, as it contains the
-requirements for building and running the kernel, and information about
-the problems which may result by upgrading your kernel.
+* Built and installed the new kernel version as of now and now below are the steps followed to build and run the modules which tests the preocessor capabilities.
+
+12. Created another folder inside the ~/linux folder using 'mkdir cmpe283' and cd into that directory.
+13. Copied the files 'makefile' and 'cmpe283-1.c' provided by professor into that folder.
+14. Edited the 'cmpe283-1.c' file by appending the license in that file.
+15. Filled the VMX fields in cmpe283-1.c and ran the command 'make'
+16. Ran the command 'sudo insmod cmpe283-1.ko' to install the modules.
+17. Ran another command to remove the modules 'sudo rmmod cmpe283-1'
+18. Finally, ran the comand 'dmesg' to get the output of 'printk' lines.
+
+Final output looks like :
+
+[  234.548608] CMPE 283 Assignment 1 Module Start
+[  234.548611] Pinbased Controls MSR: 0x0
+[  234.548612]   External Interrupt Exiting: Can set=No, Can clear=Yes
+[  234.548613]   NMI Exiting: Can set=No, Can clear=Yes
+[  234.548614]   Virtual NMIs: Can set=No, Can clear=Yes
+[  234.548614]   Activate VMX Preemption Timer: Can set=No, Can clear=Yes
+[  234.548615]   Process Posted Interrupts: Can set=No, Can clear=Yes
+[  234.548616] Procbased Controls MSR: 0x0
+[  234.548617]   Interrupt-window exiting: Can set=No, Can clear=Yes
+[  234.548617]   Use TSC offsetting: Can set=No, Can clear=Yes
+[  234.548618]   HLT exiting: Can set=No, Can clear=Yes
+[  234.548618]   INVLPG exiting: Can set=No, Can clear=Yes
+[  234.548619]   MWAIT exiting: Can set=No, Can clear=Yes
+[  234.548619]   RDPMC exiting: Can set=No, Can clear=Yes
+[  234.548620]   RDTSC exiting: Can set=No, Can clear=Yes
+[  234.548620]   CR3-load exiting: Can set=No, Can clear=Yes
+[  234.548621]   CR3-store exiting: Can set=No, Can clear=Yes
+[  234.548621]   Activate tertiary controls: Can set=No, Can clear=Yes
+[  234.548622]   CR8-load exiting: Can set=No, Can clear=Yes
+[  234.548623]   CR8-store exiting: Can set=No, Can clear=Yes
+[  234.548623]   Use TPR shadow: Can set=No, Can clear=Yes
+[  234.548624]   NMI-window exiting: Can set=No, Can clear=Yes
+[  234.548624]   MOV-DR exiting: Can set=No, Can clear=Yes
+[  234.548625]   Unconditional I/O exiting: Can set=No, Can clear=Yes
+[  234.548625]   Use I/O bitmaps: Can set=No, Can clear=Yes
+[  234.548626]   Monitor trap flag: Can set=No, Can clear=Yes
+[  234.548626]   Use MSR bitmaps: Can set=No, Can clear=Yes
+[  234.548627]   MONITOR exiting: Can set=No, Can clear=Yes
+[  234.548627]   PAUSE exiting: Can set=No, Can clear=Yes
+[  234.548628]   Activate secondary controls: Can set=No, Can clear=Yes
+[  234.548629] Secondary Procbased Controls MSR: 0x0
+[  234.548630]   Virtualize APIC accesses: Can set=No, Can clear=Yes
+[  234.548630]   Enable EPT: Can set=No, Can clear=Yes
+[  234.548631]   Descriptor-table exiting: Can set=No, Can clear=Yes
+[  234.548631]   Enable RDTSCP: Can set=No, Can clear=Yes
+[  234.548632]   Virtualize x2APIC mode: Can set=No, Can clear=Yes
+[  234.548632]   Enable VPID: Can set=No, Can clear=Yes
+[  234.548633]   WBINVD exiting: Can set=No, Can clear=Yes
+[  234.548633]   Unrestricted guest: Can set=No, Can clear=Yes
+[  234.548634]   APIC-register virtualization: Can set=No, Can clear=Yes
+[  234.548634]   Virtual-interrupt delivery: Can set=No, Can clear=Yes
+[  234.548640]   PAUSE-loop exiting: Can set=No, Can clear=Yes
+[  234.548641]   RDRAND exiting : Can set=No, Can clear=Yes
+[  234.548641]   Enable INVPCID: Can set=No, Can clear=Yes
+[  234.548642]   Enable VM functions: Can set=No, Can clear=Yes
+[  234.548642]   VMCS shadowing: Can set=No, Can clear=Yes
+[  234.548643]   Enable ENCLS exiting: Can set=No, Can clear=Yes
+[  234.548643]   RDSEED exiting: Can set=No, Can clear=Yes
+[  234.548644]   Enable PML: Can set=No, Can clear=Yes
+[  234.548644]   EPT-violation #VE: Can set=No, Can clear=Yes
+[  234.548645]   Conceal VMX from PT: Can set=No, Can clear=Yes
+[  234.548645]   Enable XSAVES/XRSTORS: Can set=No, Can clear=Yes
+[  234.548646]   Mode-based execute control for EPT: Can set=No, Can clear=Yes
+[  234.548646]   Sub-page write permissions for EPT: Can set=No, Can clear=Yes
+[  234.548647]   Intel PT uses guest physical addresses: Can set=No, Can clear=Yes
+[  234.548647]   Use TSC scaling: Can set=No, Can clear=Yes
+[  234.548648]   Enable user wait and pause: Can set=No, Can clear=Yes
+[  234.548648]   Enable ENCLV exiting: Can set=No, Can clear=Yes
+[  234.548650] VM-Exit Controls MSR: 0x0
+[  234.548650]   Save debug controls: Can set=No, Can clear=Yes
+[  234.548651]   Host address-space size: Can set=No, Can clear=Yes
+[  234.548652]   Load IA32_PERF_GLOBAL_CTRL: Can set=No, Can clear=Yes
+[  234.548652]   Acknowledge interrupt on exit: Can set=No, Can clear=Yes
+[  234.548653]   Save IA32_PAT: Can set=No, Can clear=Yes
+[  234.548653]   Load IA32_PAT: Can set=No, Can clear=Yes
+[  234.548654]   Save IA32_EFER: Can set=No, Can clear=Yes
+[  234.548654]   Load IA32_EFER: Can set=No, Can clear=Yes
+[  234.548655]   Save VMX-preemption timer value: Can set=No, Can clear=Yes
+[  234.548655]   Clear IA32_BNDCFGS: Can set=No, Can clear=Yes
+[  234.548656]   Conceal VMX from PT: Can set=No, Can clear=Yes
+[  234.548656]   Clear IA32_RTIT_CTL: Can set=No, Can clear=Yes
+[  234.548657]   Load CET state: Can set=No, Can clear=Yes
+[  234.548657]   Load PKRS: Can set=No, Can clear=Yes
+[  234.548659] VM-Entry Controls MSR: 0x0
+[  234.548659]   Load debug controls: Can set=No, Can clear=Yes
+[  234.548660]   IA-32e mode guest: Can set=No, Can clear=Yes
+[  234.548660]   Entry to SMM: Can set=No, Can clear=Yes
+[  234.548661]   Deactivate dual-monitor treatment: Can set=No, Can clear=Yes
+[  234.548661]   Load IA32_PERF_GLOBAL_CTRL: Can set=No, Can clear=Yes
+[  234.548662]   Load IA32_PAT: Can set=No, Can clear=Yes
+[  234.548662]   Load IA32_EFER: Can set=No, Can clear=Yes
+[  234.548663]   Load IA32_BNDCFGS: Can set=No, Can clear=Yes
+[  234.548664]   Conceal VMX from PT: Can set=No, Can clear=Yes
+[  234.548664]   Load IA32_RTIT_CTL: Can set=No, Can clear=Yes
+[  234.548665]   Load CET state: Can set=No, Can clear=Yes
+[  234.548665]   Load PKRS: Can set=No, Can clear=Yes
+[  248.039289] CMPE 283 Assignment 1 Module Exits
+
+
+References used :
+
+https://unix.stackexchange.com/questions/390184/dmesg-read-kernel-buffer-failed-permission-denied
+https://stackoverflow.com/questions/61657707/btf-tmp-vmlinux-btf-pahole-pahole-is-not-available 
+https://askubuntu.com/questions/1362455/i-am-installing-kernel-in-my-ubuntu-but-getting-an-error
+https://askubuntu.com/questions/1329538/compiling-the-kernel-5-11-11/1329625#1329625
+
+
+
+
+
+                
+  
+
