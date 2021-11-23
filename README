@@ -144,7 +144,47 @@ https://askubuntu.com/questions/1329538/compiling-the-kernel-5-11-11/1329625#132
 
 
 
+Assignment # 2
 
+Note : Prerequisite is to have assignment 1 running
+
+Team members contribution :
+
+Raj Kinkhabwala - 
+Built and installed new version of KVM modules with revised cpuid and exit handling
+
+Sakshi Jain -  
+Built and ran the VM to get the first leaf output of cpuid instruction
+
+Steps follwed :
+
+1. Running assignment 1 environment
+2. Modified vmx.c and cpuid.c (see source code in this repo) and added total_time and total_exits logic to the exit handler
+3. Built new kernel using the command 'make -j 8 modules'
+4. Installed the KVM module using 'sudo make INSTALL_MOD_STRIP=1 modules_install'
+5. Unloaded the previous version of the kvm module using 'rmmod kvm' and 'rmmod kvm_intel'
+6. And finally loaded the new version of KVM modules using 'modprobe kvm' and 'modprobe kvm_intel'
+
+** below steps to create and run a VM
+
+7. Used 'virt-manager' to create a VM
+8. Logged in to the VM and installed the cpuid package using command 'sudo apt install cpuid'
+9. Executed the cpuid command with two diffrent leaf values (0x4FFFFFFF and 0x4FFFFFFE) using command 'cpuid -l 0x4FFFFFFF'.
+
+
+Final output looks like :
+
+
+![alt text] (https://github.com/rajkinkhabwala/linux/blob/master/CPUID_leafOne.jpeg)
+
+
+![alt text] (https://github.com/rajkinkhabwala/linux/blob/master/CPUID_leafSecond.jpeg)
+
+
+References used :
+
+ https://www.linuxquestions.org/questions/linux-virtualization-and-cloud-90/kvm-no-hardware-support-76594 
+ https://bbs.archlinux.org/viewtopic.php?id=29981
 
                 
   
