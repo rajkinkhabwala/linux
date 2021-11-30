@@ -201,5 +201,7 @@ References used :
   4. Types of exits defined in SDM are :
      
      Most Frequent Exit Types : IO Instruction - code 30,Control Register Accesses- code 28, CPUID - code 10, EPT Violation - code 48, 
-     Least Frequest Exit Types : MOV DR - code 29, WBINVD - Code 54 and GDTR or IDTR - code 46 
+     Least Frequest Exit Types : MOV DR - code 29, WBINVD - Code 54 and GDTR or IDTR - code 46
+    
+   Many exit didnt occur at all with zero frequency.
 
