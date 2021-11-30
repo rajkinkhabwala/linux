@@ -5591,7 +5591,8 @@ static int handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
 	/*
 	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
 	 * VM-Exits. Unconditionally set the flag here and leave the handling to
-	 * vmx_handle_exit().
+	 * vmx_
+handle_exit().
 	 */
 	to_vmx(vcpu)->exit_reason.bus_lock_detected = true;
 	return 1;
@@ -5922,13 +5923,6 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	union vmx_exit_reason exit_reason = vmx->exit_reason;
 	u32 vectoring_info = vmx->idt_vectoring_info;
 	u16 exit_handler_index;
-	
-	// access global vars from cpuid.c
-	extern u32 total_exits; 
-	extern u64 total_time;
-	// CMPE 281 Assignments 2&3
-	u64 curr_time = rdtsc();
-
 
 	/*
 	 * Flush logged GPAs PML buffer, this will make dirty_bitmap more
@@ -6069,16 +6063,9 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 						kvm_vmx_max_exit_handlers);
 	if (!kvm_vmx_exit_handlers[exit_handler_index])
 		goto unexpected_vmexit;
-		
-	// CMPE 281 Assignments 2&3
-	{
-		int exit_code = kvm_vmx_exit_handlers[exit_handler_index](vcpu);
-		
-		total_exits++;
-		total_time += rdtsc() - curr_time;
-		
-		return exit_code;
-	}
+
+	return kvm_vmx_exit_handlers[exit_handler_index](vcpu);
+
 unexpected_vmexit:
 	vcpu_unimpl(vcpu, "vmx: unexpected exit reason 0x%x\n",
 		    exit_reason.full);
