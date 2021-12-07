@@ -151,7 +151,7 @@ Assignment # 2
 
 Note : Prerequisite is to have assignment 1 running
 
-Team members contribution :
+Q.1 Team members contribution :
 
 Raj Kinkhabwala - 
 Built and installed new version of KVM modules with revised cpuid and exit handling
@@ -159,7 +159,7 @@ Built and installed new version of KVM modules with revised cpuid and exit handl
 Sakshi Jain -  
 Built and ran the VM to get the first leaf output of cpuid instruction
 
-Steps follwed :
+Q.2 Steps follwed :
 
 1. Running assignment 1 environment
 2. Modified vmx.c and cpuid.c (see source code in this repo) and added total_time and total_exits logic to the exit handler
@@ -190,5 +190,18 @@ References used :
  https://bbs.archlinux.org/viewtopic.php?id=29981
 
                 
+  Assignment # 3
+
+  For the third and fourth leaf i.e CPUID 0x4FFFFFFD and 0x4FFFFFFC :
   
+  3. Frequency of exits: 
+      The number of exits increases at a moderate pace after each run of the CPUID leaf function. 
+      In a full VM boot, there are roughly 5.6 million exits.
+     
+  4. Types of exits defined in SDM are :
+     
+     Most Frequent Exit Types : IO Instruction - code 30,Control Register Accesses- code 28, CPUID - code 10, EPT Violation - code 48, 
+     Least Frequest Exit Types : MOV DR - code 29, WBINVD - Code 54 and GDTR or IDTR - code 46
+    
+   Many exit didnt occur at all with zero frequency.
 
