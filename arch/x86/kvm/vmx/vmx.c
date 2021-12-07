@@ -103,7 +103,7 @@ static bool __read_mostly fasteoi = 1;
 module_param(fasteoi, bool, S_IRUGO);
 
 module_param(enable_apicv, bool, S_IRUGO);
-
+//
 /*
  * If nested=1, nested virtualization is supported, i.e., guests may use
  * VMX and be a hypervisor for its own guests. If nested=0, guests may not
@@ -5922,10 +5922,11 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	union vmx_exit_reason exit_reason = vmx->exit_reason;
 	u32 vectoring_info = vmx->idt_vectoring_info;
 	u16 exit_handler_index;
-	
 	// access global vars from cpuid.c
-	extern u32 total_exits; 
+	extern u32 total_exits;
 	extern u64 total_time;
+	extern u32 count_time[];
+	extern u64 count_exits[];
 	// CMPE 281 Assignments 2&3
 	u64 curr_time = rdtsc();
 
@@ -6073,10 +6074,14 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	// CMPE 281 Assignments 2&3
 	{
 		int exit_code = kvm_vmx_exit_handlers[exit_handler_index](vcpu);
-		
+		int time = rdtsc() - curr_time;
+		reason r = get_reason(exit_reason.basic);
 		total_exits++;
-		total_time += rdtsc() - curr_time;
-		
+		total_time += time;
+		if (r.code > -1) {
+			count_exits[r.code]++;
+			count_time[r.code] += time;
+		}
 		return exit_code;
 	}
 unexpected_vmexit:

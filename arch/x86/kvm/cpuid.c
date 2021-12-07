@@ -1301,7 +1301,6 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 			ecx = (u32)count_time[r.code];
 		}
 	}
-		
 	else {
 		kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
 	}
